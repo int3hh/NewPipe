@@ -297,6 +297,26 @@ public class NavigationHelper {
                 .commit();
     }
 
+    public static void openVideoDetailFragment(FragmentManager fragmentManager, int serviceId, String url, String title, boolean autoPlay, long pid) {
+        Fragment fragment = fragmentManager.findFragmentById(R.id.fragment_holder);
+        if (title == null) title = "";
+
+        if (fragment instanceof VideoDetailFragment && fragment.isVisible()) {
+            VideoDetailFragment detailFragment = (VideoDetailFragment) fragment;
+            detailFragment.setAutoplay(autoPlay);
+            detailFragment.selectAndLoadVideo(serviceId, url, title);
+            return;
+        }
+
+        VideoDetailFragment instance = VideoDetailFragment.getInstance(serviceId, url, title, pid);
+        instance.setAutoplay(autoPlay);
+
+        defaultTransaction(fragmentManager)
+                .replace(R.id.fragment_holder, instance)
+                .addToBackStack(null)
+                .commit();
+    }
+
     public static void openChannelFragment(
             FragmentManager fragmentManager,
             int serviceId,

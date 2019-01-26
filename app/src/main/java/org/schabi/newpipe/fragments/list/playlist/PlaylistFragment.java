@@ -75,9 +75,6 @@ public class PlaylistFragment extends BaseListInfoFragment<PlaylistInfo> {
     private TextView headerStreamCount;
     private View playlistCtrl;
 
-    private View headerPlayAllButton;
-    private View headerPopupButton;
-    private View headerBackgroundButton;
 
     private MenuItem playlistBookmarkButton;
 
@@ -118,11 +115,6 @@ public class PlaylistFragment extends BaseListInfoFragment<PlaylistInfo> {
         headerUploaderAvatar = headerRootLayout.findViewById(R.id.uploader_avatar_view);
         headerStreamCount = headerRootLayout.findViewById(R.id.playlist_stream_count);
         playlistCtrl = headerRootLayout.findViewById(R.id.playlist_control);
-
-        headerPlayAllButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_all_button);
-        headerPopupButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_popup_button);
-        headerBackgroundButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_bg_button);
-
 
         return headerRootLayout;
     }
@@ -299,12 +291,6 @@ public class PlaylistFragment extends BaseListInfoFragment<PlaylistInfo> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getPlaylistBookmarkSubscriber());
 
-        headerPlayAllButton.setOnClickListener(view ->
-                NavigationHelper.playOnMainPlayer(activity, getPlayQueue()));
-        headerPopupButton.setOnClickListener(view ->
-                NavigationHelper.playOnPopupPlayer(activity, getPlayQueue()));
-        headerBackgroundButton.setOnClickListener(view ->
-                NavigationHelper.playOnBackgroundPlayer(activity, getPlayQueue()));
     }
 
     private PlayQueue getPlayQueue() {

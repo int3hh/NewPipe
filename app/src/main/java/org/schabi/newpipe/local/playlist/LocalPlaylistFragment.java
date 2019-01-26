@@ -61,9 +61,6 @@ public class LocalPlaylistFragment extends BaseLocalListFragment<List<PlaylistSt
     private TextView headerStreamCount;
 
     private View playlistControl;
-    private View headerPlayAllButton;
-    private View headerPopupButton;
-    private View headerBackgroundButton;
 
     @State
     protected Long playlistId;
@@ -144,9 +141,6 @@ public class LocalPlaylistFragment extends BaseLocalListFragment<List<PlaylistSt
         headerStreamCount = headerRootLayout.findViewById(R.id.playlist_stream_count);
 
         playlistControl = headerRootLayout.findViewById(R.id.playlist_control);
-        headerPlayAllButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_all_button);
-        headerPopupButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_popup_button);
-        headerBackgroundButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_bg_button);
 
         return headerRootLayout;
     }
@@ -166,7 +160,7 @@ public class LocalPlaylistFragment extends BaseLocalListFragment<List<PlaylistSt
                 if (selectedItem instanceof PlaylistStreamEntry) {
                     final PlaylistStreamEntry item = (PlaylistStreamEntry) selectedItem;
                     NavigationHelper.openVideoDetailFragment(getFragmentManager(),
-                            item.serviceId, item.url, item.title);
+                            item.serviceId, item.url, item.title, false, playlistId );
                 }
             }
 
@@ -236,9 +230,6 @@ public class LocalPlaylistFragment extends BaseLocalListFragment<List<PlaylistSt
         super.onDestroyView();
 
         if (itemListAdapter != null) itemListAdapter.unsetSelectedListener();
-        if (headerBackgroundButton != null) headerBackgroundButton.setOnClickListener(null);
-        if (headerPlayAllButton != null) headerPlayAllButton.setOnClickListener(null);
-        if (headerPopupButton != null) headerPopupButton.setOnClickListener(null);
 
         if (databaseSubscription != null) databaseSubscription.cancel();
         if (disposables != null) disposables.clear();
@@ -316,14 +307,6 @@ public class LocalPlaylistFragment extends BaseLocalListFragment<List<PlaylistSt
             itemsListState = null;
         }
         setVideoCount(itemListAdapter.getItemsList().size());
-
-        headerPlayAllButton.setOnClickListener(view ->
-                NavigationHelper.playOnMainPlayer(activity, getPlayQueue()));
-        headerPopupButton.setOnClickListener(view ->
-                NavigationHelper.playOnPopupPlayer(activity, getPlayQueue()));
-        headerBackgroundButton.setOnClickListener(view ->
-                NavigationHelper.playOnBackgroundPlayer(activity, getPlayQueue()));
-
         hideLoading();
     }
 

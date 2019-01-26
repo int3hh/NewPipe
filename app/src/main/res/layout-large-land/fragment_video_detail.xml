@@ -315,78 +315,7 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:orientation="horizontal"
-						android:padding="6dp">
-
-						<!-- CONTROLS -->
-						<TextView
-							android:id="@+id/detail_controls_playlist_append"
-							android:layout_width="80dp"
-							android:layout_height="55dp"
-							android:layout_gravity="center_vertical"
-							android:layout_weight="1"
-							android:background="?attr/selectableItemBackgroundBorderless"
-							android:clickable="true"
-							android:contentDescription="@string/append_playlist"
-							android:drawableTop="?attr/ic_playlist_add"
-							android:focusable="true"
-							android:gravity="center"
-							android:paddingBottom="6dp"
-							android:paddingTop="6dp"
-							android:text="@string/controls_add_to_playlist_title"
-							android:textSize="12sp" />
-
-						<TextView
-							android:id="@+id/detail_controls_background"
-							android:layout_width="80dp"
-							android:layout_height="55dp"
-							android:layout_gravity="center_vertical"
-							android:layout_weight="1"
-							android:background="?attr/selectableItemBackgroundBorderless"
-							android:clickable="true"
-							android:contentDescription="@string/play_audio"
-							android:drawableTop="?attr/audio"
-							android:focusable="true"
-							android:gravity="center"
-							android:paddingBottom="6dp"
-							android:paddingTop="6dp"
-							android:text="@string/controls_background_title"
-							android:textSize="12sp" />
-
-						<TextView
-							android:id="@+id/detail_controls_popup"
-							android:layout_width="80dp"
-							android:layout_height="55dp"
-							android:layout_gravity="center_vertical"
-							android:layout_weight="1"
-							android:background="?attr/selectableItemBackgroundBorderless"
-							android:clickable="true"
-							android:contentDescription="@string/open_in_popup_mode"
-							android:drawableTop="?attr/popup"
-							android:focusable="true"
-							android:gravity="center"
-							android:paddingBottom="6dp"
-							android:paddingTop="6dp"
-							android:text="@string/controls_popup_title"
-							android:textSize="12sp" />
-
-						<TextView
-							android:id="@+id/detail_controls_download"
-							android:layout_width="80dp"
-							android:layout_height="55dp"
-							android:layout_gravity="center_vertical"
-							android:layout_weight="1"
-							android:background="?attr/selectableItemBackgroundBorderless"
-							android:clickable="true"
-							android:contentDescription="@string/controls_download_desc"
-							android:drawableTop="?attr/download"
-							android:focusable="true"
-							android:gravity="center"
-							android:paddingBottom="6dp"
-							android:paddingTop="6dp"
-							android:text="@string/download"
-							android:textSize="12sp" />
-
-					</LinearLayout>
+						android:padding="6dp"/>
 
 					<View
 						android:layout_width="match_parent"

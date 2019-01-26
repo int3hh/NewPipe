@@ -84,9 +84,6 @@ public class ChannelFragment extends BaseListInfoFragment<ChannelInfo> {
     private Button headerSubscribeButton;
     private View playlistCtrl;
 
-    private LinearLayout headerPlayAllButton;
-    private LinearLayout headerPopupButton;
-    private LinearLayout headerBackgroundButton;
 
     private MenuItem menuRssButton;
 
@@ -140,11 +137,6 @@ public class ChannelFragment extends BaseListInfoFragment<ChannelInfo> {
         headerSubscribersTextView = headerRootLayout.findViewById(R.id.channel_subscriber_view);
         headerSubscribeButton = headerRootLayout.findViewById(R.id.channel_subscribe_button);
         playlistCtrl = headerRootLayout.findViewById(R.id.playlist_control);
-
-
-        headerPlayAllButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_all_button);
-        headerPopupButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_popup_button);
-        headerBackgroundButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_bg_button);
 
         return headerRootLayout;
     }
@@ -438,12 +430,6 @@ public class ChannelFragment extends BaseListInfoFragment<ChannelInfo> {
         updateSubscription(result);
         monitorSubscription(result);
 
-        headerPlayAllButton.setOnClickListener(
-                view -> NavigationHelper.playOnMainPlayer(activity, getPlayQueue()));
-        headerPopupButton.setOnClickListener(
-                view -> NavigationHelper.playOnPopupPlayer(activity, getPlayQueue()));
-        headerBackgroundButton.setOnClickListener(
-                view -> NavigationHelper.playOnBackgroundPlayer(activity, getPlayQueue()));
     }
 
     private PlayQueue getPlayQueue() {

@@ -121,9 +121,6 @@ public class StatisticsPlaylistFragment
         final View headerRootLayout = activity.getLayoutInflater().inflate(R.layout.statistic_playlist_control,
                 itemsList, false);
         playlistCtrl = headerRootLayout.findViewById(R.id.playlist_control);
-        headerPlayAllButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_all_button);
-        headerPopupButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_popup_button);
-        headerBackgroundButton = headerRootLayout.findViewById(R.id.playlist_ctrl_play_bg_button);
         sortButton = headerRootLayout.findViewById(R.id.sortButton);
         sortButtonIcon = headerRootLayout.findViewById(R.id.sortButtonIcon);
         sortButtonText = headerRootLayout.findViewById(R.id.sortButtonText);

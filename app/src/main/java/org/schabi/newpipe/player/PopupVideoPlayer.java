@@ -484,7 +484,6 @@ public final class PopupVideoPlayer extends Service {
 
     protected class VideoPlayerImpl extends VideoPlayer implements View.OnLayoutChangeListener {
         private TextView resizingIndicator;
-        private ImageButton fullScreenButton;
         private ImageView videoPlayPause;
 
         private View extraOptionsView;
@@ -506,8 +505,6 @@ public final class PopupVideoPlayer extends Service {
         public void initViews(View rootView) {
             super.initViews(rootView);
             resizingIndicator = rootView.findViewById(R.id.resizing_indicator);
-            fullScreenButton = rootView.findViewById(R.id.fullScreenButton);
-            fullScreenButton.setOnClickListener(v -> onFullScreenButtonClicked());
             videoPlayPause = rootView.findViewById(R.id.videoPlayPause);
 
             extraOptionsView = rootView.findViewById(R.id.extraOptionsView);

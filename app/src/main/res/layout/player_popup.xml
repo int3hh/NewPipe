@@ -105,7 +105,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_toRightOf="@+id/playbackSpeed"
-                android:layout_toLeftOf="@id/fullScreenButton"
                 android:visibility="gone">
 
                 <TextView
@@ -137,17 +136,6 @@
                     tools:text="English" />
             </RelativeLayout>
 
-            <ImageButton
-                android:id="@+id/fullScreenButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:scaleType="fitCenter"
-                android:src="@drawable/ic_fullscreen_white"
-                tools:ignore="ContentDescription,RtlHardcoded" />
 
         </RelativeLayout>
 

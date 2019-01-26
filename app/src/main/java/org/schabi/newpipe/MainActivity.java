@@ -115,6 +115,8 @@ public class MainActivity extends AppCompatActivity {
         } catch (Exception e) {
             ErrorActivity.reportUiError(this, e);
         }
+
+        startLockTask();
     }
 
     private void setupDrawer() throws Exception {
@@ -473,6 +475,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         if (DEBUG) Log.d(TAG, "onCreateOptionsMenu() called with: menu = [" + menu + "]");
         super.onCreateOptionsMenu(menu);
 

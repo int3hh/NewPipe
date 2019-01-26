@@ -516,6 +516,7 @@ public class VideoDetailFragment
         infoItemBuilder.setOnStreamSelectedListener(new OnClickGesture<StreamInfoItem>() {
             @Override
             public void selected(StreamInfoItem selectedItem) {
+                Log.e("BFF", "Click clock!");
                 selectAndLoadVideo(selectedItem.getServiceId(), selectedItem.getUrl(), selectedItem.getName());
             }
 
@@ -831,6 +832,8 @@ public class VideoDetailFragment
                     handleResult(info);
                     showContentWithAnimation(120, 0, .01f);
                 });
+
+
     }
 
     protected void prepareAndLoadInfo() {
@@ -888,7 +891,6 @@ public class VideoDetailFragment
         if (append) {
             NavigationHelper.enqueueOnPopupPlayer(activity, itemQueue);
         } else {
-            Toast.makeText(activity, R.string.popup_playing_toast, Toast.LENGTH_SHORT).show();
             final Intent intent = NavigationHelper.getPlayerIntent(
                     activity, PopupVideoPlayer.class, itemQueue, getSelectedVideoStream().resolution
             );
@@ -1225,11 +1227,7 @@ public class VideoDetailFragment
                 break;
         }
 
-        if (autoPlayEnabled) {
-            openVideoPlayer();
-            // Only auto play in the first open
-            autoPlayEnabled = false;
-        }
+        openPopupPlayer(false);
 
         final ViewParent related = relatedStreamRootLayout.getParent();
         if (related instanceof ScrollView) {

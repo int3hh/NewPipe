@@ -26,11 +26,13 @@ import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -44,6 +46,7 @@ import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.PlaybackParameters;
@@ -148,6 +151,8 @@ public abstract class VideoPlayer extends BasePlayer
 
     private final int captionPopupMenuGroupId = 89;
     private PopupMenu captionPopupMenu;
+    private Boolean repeatVideo = false;
+    private SharedPreferences pref;
 
     ///////////////////////////////////////////////////////////////////////////
 
@@ -204,6 +209,7 @@ public abstract class VideoPlayer extends BasePlayer
 
         ((ProgressBar) this.loadingPanel.findViewById(R.id.progressBarLoadingPanel))
                 .getIndeterminateDrawable().setColorFilter(Color.WHITE, PorterDuff.Mode.MULTIPLY);
+
     }
 
     protected abstract void setupSubtitleView(@NonNull SubtitleView view,
@@ -237,6 +243,8 @@ public abstract class VideoPlayer extends BasePlayer
             trackSelector.setParameters(trackSelector.buildUponParameters()
                     .setTunnelingAudioSessionId(C.generateAudioSessionIdV21(context)));
         }
+
+
     }
 
     @Override
@@ -446,12 +454,17 @@ public abstract class VideoPlayer extends BasePlayer
     public void onCompleted() {
         super.onCompleted();
 
-        showControls(500);
-        animateView(endScreen, true, 800);
-        animateView(currentDisplaySeek, AnimationUtils.Type.SCALE_AND_ALPHA, false, 200);
-        loadingPanel.setVisibility(View.GONE);
+        if (repeatVideo) {
+            seekTo(0);
+        } else {
 
-        animateView(surfaceForeground, true, 100);
+            showControls(500);
+            animateView(endScreen, true, 800);
+            animateView(currentDisplaySeek, AnimationUtils.Type.SCALE_AND_ALPHA, false, 200);
+            loadingPanel.setVisibility(View.GONE);
+
+            animateView(surfaceForeground, true, 100);
+        }
     }
 
     /*//////////////////////////////////////////////////////////////////////////
@@ -511,8 +524,28 @@ public abstract class VideoPlayer extends BasePlayer
         // Normalize mismatching language strings
         final String preferredLanguage = trackSelector.getPreferredTextLanguage();
 
-        // Build UI
-        buildCaptionMenu(availableLanguages);
+        // Build
+        pref = PreferenceManager.getDefaultSharedPreferences(context);
+        repeatVideo = pref.getBoolean("repeatVideo", false);
+        if (repeatVideo) {
+            captionTextView.setText("\u2713 Repeat");
+        } else {
+            captionTextView.setText("Repeat");
+        }
+        captionTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               repeatVideo = !repeatVideo;
+               if (repeatVideo) {
+                   captionTextView.setText("\u2713 Repeat");
+               } else {
+                   captionTextView.setText("Repeat");
+               }
+               pref.edit().putBoolean("repeatVideo", repeatVideo).commit();
+            }
+        });
+        captionTextView.setVisibility(View.VISIBLE);
+       /* buildCaptionMenu(availableLanguages);
         if (trackSelector.getParameters().getRendererDisabled(textRenderer) ||
                 preferredLanguage == null || !availableLanguages.contains(preferredLanguage)) {
             captionTextView.setText(R.string.caption_none);
@@ -520,6 +553,7 @@ public abstract class VideoPlayer extends BasePlayer
             captionTextView.setText(preferredLanguage);
         }
         captionTextView.setVisibility(availableLanguages.isEmpty() ? View.GONE : View.VISIBLE);
+        */
     }
 
     /*//////////////////////////////////////////////////////////////////////////

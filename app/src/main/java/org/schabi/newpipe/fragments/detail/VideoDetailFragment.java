@@ -422,10 +422,15 @@ public class VideoDetailFragment
     public void handleResult2(@NonNull List<PlaylistStreamEntry> result) {
        for (int i = 0; i < result.size(); i++) {
            PlaylistStreamEntry pl = result.get(i);
-           InfoItem Ii = new StreamInfoItem( pl.serviceId,  pl.url, pl.title, StreamType.VIDEO_STREAM);
-           Ii.setThumbnailUrl(pl.thumbnailUrl);
-           relatedStreamsView.addView(infoItemBuilder.buildView(relatedStreamsView, Ii, true));
-
+           if (!pl.thumbnailUrl.equals(currentInfo.getThumbnailUrl())) {
+               StreamInfoItem Ii = new StreamInfoItem(pl.serviceId, pl.url, pl.title, StreamType.VIDEO_STREAM);
+               Ii.setThumbnailUrl(pl.thumbnailUrl);
+               relatedStreamsView.addView(infoItemBuilder.buildView(relatedStreamsView, Ii, true));
+               SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(getContext());
+               if (!pref.getBoolean("repeatVideo", false)) {
+                   NavigationHelper.enqueueOnPopupPlayer(getActivity(), new SinglePlayQueue(Ii));
+               }
+           }
        }
     }
 
@@ -516,7 +521,6 @@ public class VideoDetailFragment
         infoItemBuilder.setOnStreamSelectedListener(new OnClickGesture<StreamInfoItem>() {
             @Override
             public void selected(StreamInfoItem selectedItem) {
-                Log.e("BFF", "Click clock!");
                 selectAndLoadVideo(selectedItem.getServiceId(), selectedItem.getUrl(), selectedItem.getName());
             }
 
